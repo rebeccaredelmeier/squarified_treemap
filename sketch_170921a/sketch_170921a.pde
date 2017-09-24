@@ -11,7 +11,6 @@ void setup()
   //traverse();
   surface.setResizable(true);
   test = new Rectangle(60, 60, 20, 20, 1);
-
 }
 
 void draw() 

@@ -19,13 +19,12 @@ void parseLeafNodes(String[] lines, int leafNodes) {
     Node newNode = tree.get(nodeID);
     newNode.ID = nodeID;
     newNode.weight = weight;
-    tree.add(nodeID, newNode);
+    tree.set(nodeID, newNode);
   
     //initTree(treeElems, nodeID++);
     //if (nodeID >= treeElems) { //expand and initialize new nodes
       //initTree(treeElems, nodeID+1);
     //}
-    println("just added: " + nodeID);
   }
 }
 
@@ -38,7 +37,6 @@ void parseRelationships(String[] lines, int leafNodes) {
      int spaceI = currLine.indexOf(" ");
      int parentID = int(currLine.substring(0, spaceI));
      int childID = int(currLine.substring(spaceI + 1, currLine.length()));
-
      if (childID >= treeElems) { // check to see if Node has already been made
        initTree(treeElems, childID + 1);
      } 
@@ -46,19 +44,29 @@ void parseRelationships(String[] lines, int leafNodes) {
      childNode.parentID = parentID;
      tree.set(childID, childNode);
      
+     
      if (parentID >= treeElems) {
        initTree(treeElems, parentID + 1);
      }
-     
+
      Node parentNode = tree.get(parentID);
      if (parentNode.ID == -1) { // check to see if Node has already been made
        parentNode.ID = parentID;
      }
-     parentNode.addChild(childID);
+     parentNode = addChild(parentID, childID);
      tree.set(parentID, parentNode);
      printNode(parentNode);
   }
 }
+
+  Node addChild(int NodeID, int toAdd) {
+    Integer intObj = new Integer(toAdd);
+    Node currNode = tree.get(NodeID);
+    currNode.childIDs.add(intObj); // casting Integer
+    Node child = tree.get(toAdd);
+    currNode.weight += child.weight;
+    return currNode;
+  }
 
 int findRoot() {
   for (int i = 0; i < tree.size(); i++) {
@@ -73,7 +81,7 @@ int findRoot() {
 void initTree(int low, int high) 
 {
   for (int i = low; i < high; i++) {
-    Node newNode = new Node(-1, -1);
+    Node newNode = new Node(-1, 0);
     tree.add(i, newNode);
     treeElems++;
   }

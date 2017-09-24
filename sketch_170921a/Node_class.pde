@@ -12,8 +12,4 @@ class Node {
     parentID = -1;
   }
   
-  void addChild(int toAdd) {
-    Integer intObj = new Integer(toAdd);
-    childIDs.add(intObj); // casting Integer
-  }
 }

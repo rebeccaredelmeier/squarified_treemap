@@ -15,7 +15,6 @@ class Rectangle {
   boolean mouseOver() {
     if (mouseX >= rectX && mouseX <= rectX+rectWidth &&
         mouseY >= rectY && mouseY <= rectY+rectHeight) {
-          println("yes moused over");
           return true;
      }
      else {
