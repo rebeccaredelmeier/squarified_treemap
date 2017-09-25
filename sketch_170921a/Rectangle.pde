@@ -1,10 +1,10 @@
 class Rectangle {
 
   Node currNode;
-  int rectWidth, rectHeight, rectX, rectY;
+  float rectWidth, rectHeight, rectX, rectY;
   
   Rectangle() {
-    fill(255);
+   
   }
   
   boolean mouseOver() {
@@ -17,22 +17,27 @@ class Rectangle {
      }
   }
   
-  void setRect(int x, int y, int w, int h, int ID) {
+  void setRect(float x, float y, float w, float h, int ID) {
     rectX = x;
     rectY = y;
     rectWidth = w;
     rectHeight = h;
+    currNode = tree.get(ID);
+    fill(0, 102, 150);
     drawRect();
   }
   
   void drawRect() {
     rect(rectX, rectY, rectWidth, rectHeight);
+    fill(0);
+    text("Node ID: " + currNode.ID, rectX + (rectWidth / 2), rectY + (rectHeight / 2));
+    textAlign(CENTER);
+    //fill(255);
     
   }
   
   void checkRect() {
     if (mouseOver()) {
-      
       fill(345);
       rect(rectX, rectY, rectWidth, rectHeight);
     }

@@ -18,7 +18,7 @@ void draw()
 {
   int currHeight = height;
   int currWidth = width;
-  c.updateCanvas(currHeight, currWidth);
+  c.updateCanvas(currHeight, currWidth, 0, 0);
   for (int i = 0; i < c.rectangles.size(); i++) {
     c.rectangles.get(i).checkRect();;
   }
