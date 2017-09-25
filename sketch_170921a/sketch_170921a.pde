@@ -1,23 +1,27 @@
 ArrayList<Node> tree;
 int treeElems;
 int rootNode;
-Rectangle test;
+Canvas c;
 
 void setup() 
 {
+  size(320, 240); 
   background(204);
   tree = new ArrayList<Node>();
   parse();
   //traverse();
   surface.setResizable(true);
-  test = new Rectangle(60, 60, 20, 20, 1);
+  c = new Canvas(width, height, rootNode);
 }
 
 void draw() 
 {
-  //for (int i = 0; i < currCanvas.numRects
-    test.checkRect();
-      
+  int currHeight = height;
+  int currWidth = width;
+  c.updateCanvas(currHeight, currWidth);
+  for (int i = 0; i < c.rectangles.size(); i++) {
+    c.rectangles.get(i).checkRect();;
+  }
 }
 
 void traverse() {

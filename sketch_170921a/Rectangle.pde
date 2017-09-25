@@ -3,13 +3,8 @@ class Rectangle {
   Node currNode;
   int rectWidth, rectHeight, rectX, rectY;
   
-  Rectangle(int w, int h, int x, int y, int NodeID) {
-    fill(153);
-    rect(x, y, w, h);
-    rectWidth = w;
-    rectHeight = h;
-    rectX = x;
-    rectY = y;
+  Rectangle() {
+    fill(255);
   }
   
   boolean mouseOver() {
@@ -22,9 +17,23 @@ class Rectangle {
      }
   }
   
+  void setRect(int x, int y, int w, int h, int ID) {
+    rectX = x;
+    rectY = y;
+    rectWidth = w;
+    rectHeight = h;
+    drawRect();
+  }
+  
+  void drawRect() {
+    rect(rectX, rectY, rectWidth, rectHeight);
+    
+  }
+  
   void checkRect() {
     if (mouseOver()) {
-      fill(80);
+      
+      fill(345);
       rect(rectX, rectY, rectWidth, rectHeight);
     }
     else {
