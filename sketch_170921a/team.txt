@@ -1,0 +1,14 @@
+team.txt
+Rebecca Redelmeier & Meredith Clarke
+VIS HW1
+September 26, 2017
+
+Names: Rebecca Redelmeier & Meredith Clarke
+
+Worked together on almost all elements.
+
+Meredith focused more on parsing the data for the tree,
+Rebecca focused more on drawing the rects and setting
+up the canvas.
+
+Both of us were stumped together!
