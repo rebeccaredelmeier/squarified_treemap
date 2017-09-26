@@ -2,7 +2,8 @@ static int FAR_FROM_ONE = 100000;
 
 class Canvas {
 
-  int canvasW, canvasH, VA_ratio;
+  int canvasW, canvasH; 
+  int VA_ratio;
   Node root;
   ArrayList<Rectangle> rectangles;
   int currTotalWeight;
@@ -26,6 +27,11 @@ class Canvas {
   
   void updateCanvas(int w, int h, int x, int y)
   {
+    rectangles.clear();
+    for(int i = 0; i < root.childIDs.size(); i++) {
+      Rectangle newRect = new Rectangle();
+      rectangles.add(newRect);
+    }
     canvasW = w;
     canvasH = h;
     int total_value = root.weight;
@@ -49,20 +55,22 @@ class Canvas {
   void fillCanvas(String short_side, int side_length, int x, int y) 
   {
     currTotalWeight = 0;
-    int elemsAdded = 1;
+    int elemsAdded = 0;
     float ratio_C1 = FAR_FROM_ONE;
     
     //root.childIDs.size()
-    for (int i = 0; i < 3 ; i++) {
+    for (int i = 0; i < 5 ; i++) {
+      elemsAdded++;
+      background(204);
       Node currChild = tree.get(root.childIDs.get(i));
       currTotalWeight += currChild.weight;
-      for (int j = 0; j < elemsAdded; j++) {
+      for (int j = 0; j <= elemsAdded; j++) {
         currTotalWeight += currChild.weight;
         float ratio_C2 = tryAdding(side_length, currChild);
         
         //TODO: ratios! Whichever is CLOSER to 1 wins.
         //if (closer_to_one(ratio_C1, ratio_C2)) {
-          set_and_update(short_side, side_length, x, y, currChild, elemsAdded);
+          set_and_update(short_side, side_length, x, y, currChild, elemsAdded, j);
           ratio_C1 = ratio_C2;
         //}
         //else { //step 13, make new canvas
@@ -70,41 +78,44 @@ class Canvas {
         //  break;
         //}
       }
-      elemsAdded++;
     }
   }
   
-  void set_and_update(String short_side, int side_length, int x, int y, Node toAdd, int elemsAdded)
+  void set_and_update(String short_side, int side_length, int x, int y, Node toAdd, int elemsAdded, int count)
   {
-    int currArea = toAdd.weight*(VA_ratio);
+    int currArea = toAdd.weight*VA_ratio;
     float currX, currY, w;
     float h = 0;
     println("adding child ID: " + toAdd.ID + " with weight: " + toAdd.weight);
     
     if (short_side == "width") {
-      float a = (currTotalWeight * (VA_ratio/elemsAdded));
-      w = (side_length / a) * currArea;
+      float totalArea = (currTotalWeight*VA_ratio) / 2;
+      w = (currArea/totalArea) * side_length;
       h = currArea / w;
       currY = y;
       currX = x;
+      if (count > 1) {
+        Rectangle prev = rectangles.get(count - 1);
+        currX = prev.rectX + prev.rectWidth;
+      }
      }
-     else {
-       println("x: " + x + " y: " + y);
-       float a = (currTotalWeight * (VA_ratio/elemsAdded));
-       h = (side_length / a) * currArea;
-       w = currArea/h;
-       println("a: " + a + " h: " + h + " w: " + w + " currArea: " + currArea);
-       currX = x;
-       currY = y;
-       if (elemsAdded > 1) {
-         currY = (rectangles.get(elemsAdded-2).rectY) + (rectangles.get(elemsAdded-2).rectHeight);
-       }
+    else {
+      float totalArea = (currTotalWeight*VA_ratio) / 2;
+      h = (currArea/totalArea) * side_length;
+      w = currArea/h;
+      currX = x;
+      currY = y;
+      if (count > 1) {
+        Rectangle prev = rectangles.get(count - 1);
+        currY = prev.rectY + prev.rectHeight;
+      }
      }
      
+     println("rectangle: " + toAdd.ID + ", width: " + w + ", height: " + h);
      //elemsAdded-1 because get() gets from 0-based indexing
-     Rectangle temp = rectangles.get(elemsAdded-1);
+     Rectangle temp = rectangles.get(count);
      temp.setRect(currX, currY, w, h, toAdd.ID);
-     rectangles.set(elemsAdded - 1, temp);
+     rectangles.set(count, temp);
      elemsAdded++;
       
   }

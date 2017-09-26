@@ -16,6 +16,8 @@ void parseLeafNodes(String[] lines, int leafNodes) {
     int spaceI = currLine.indexOf(" ");
     int nodeID = int(currLine.substring(0, spaceI));
     int weight = int(currLine.substring(spaceI + 1, currLine.length()));
+    tree.ensureCapacity(nodeID);
+    initTree(treeElems, nodeID + 1);
     Node newNode = tree.get(nodeID);
     newNode.ID = nodeID;
     newNode.weight = weight;

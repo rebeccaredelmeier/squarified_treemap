@@ -16,6 +16,7 @@ void setup()
 
 void draw() 
 {
+  background(204);
   int currHeight = height;
   int currWidth = width;
   c.updateCanvas(currHeight, currWidth, 0, 0);
