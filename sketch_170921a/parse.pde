@@ -22,11 +22,7 @@ void parseLeafNodes(String[] lines, int leafNodes) {
     newNode.ID = nodeID;
     newNode.weight = weight;
     tree.set(nodeID, newNode);
-  
-    //initTree(treeElems, nodeID++);
-    //if (nodeID >= treeElems) { //expand and initialize new nodes
-      //initTree(treeElems, nodeID+1);
-    //}
+
   }
 }
 

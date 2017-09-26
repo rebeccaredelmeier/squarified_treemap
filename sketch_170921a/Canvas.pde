@@ -17,7 +17,7 @@ class Canvas {
     
     //initialize an array of Rectangles for the number of
     //children that the node has. some of these indexes will
-    //go unused... oh well.
+    //go unused.
     for(int i = 0; i < root.childIDs.size(); i++) {
       Rectangle newRect = new Rectangle();
       rectangles.add(newRect);
@@ -47,8 +47,7 @@ class Canvas {
       short_side = "height";
       short_side_length = canvasW;
     }
-    //Rectangle currRect = new Rectangle(0, 0, side_length, (currArea/2), currChild.ID);
-    //rectangles.add(currRect);
+    
     fillCanvas(short_side, short_side_length, x, y);
   }
   
@@ -58,8 +57,7 @@ class Canvas {
     int elemsAdded = 0;
     float ratio_C1 = FAR_FROM_ONE;
     
-    //root.childIDs.size()
-    for (int i = 0; i < 5 ; i++) {
+    for (int i = 0; i < root.childIDs.size() -1 ; i++) {
       elemsAdded++;
       background(204);
       Node currChild = tree.get(root.childIDs.get(i));
@@ -70,8 +68,8 @@ class Canvas {
         
         //TODO: ratios! Whichever is CLOSER to 1 wins.
         //if (closer_to_one(ratio_C1, ratio_C2)) {
-          set_and_update(short_side, side_length, x, y, currChild, elemsAdded, j);
-          ratio_C1 = ratio_C2;
+          set_and_update(short_side, side_length, x, y, currChild, elemsAdded);
+         // ratio_C1 = ratio_C2;
         //}
         //else { //step 13, make new canvas
         //  println("breaking");
@@ -81,12 +79,11 @@ class Canvas {
     }
   }
   
-  void set_and_update(String short_side, int side_length, int x, int y, Node toAdd, int elemsAdded, int count)
+  void set_and_update(String short_side, int side_length, int x, int y, Node toAdd, int elemsAdded)
   {
     int currArea = toAdd.weight*VA_ratio;
     float currX, currY, w;
     float h = 0;
-    println("adding child ID: " + toAdd.ID + " with weight: " + toAdd.weight);
     
     if (short_side == "width") {
       float totalArea = (currTotalWeight*VA_ratio) / 2;
@@ -94,8 +91,8 @@ class Canvas {
       h = currArea / w;
       currY = y;
       currX = x;
-      if (count > 1) {
-        Rectangle prev = rectangles.get(count - 1);
+      if (elemsAdded > 1) {
+        Rectangle prev = rectangles.get(elemsAdded - 1);
         currX = prev.rectX + prev.rectWidth;
       }
      }
@@ -105,17 +102,15 @@ class Canvas {
       w = currArea/h;
       currX = x;
       currY = y;
-      if (count > 1) {
-        Rectangle prev = rectangles.get(count - 1);
+      if (elemsAdded > 1) {
+        Rectangle prev = rectangles.get(elemsAdded - 1);
         currY = prev.rectY + prev.rectHeight;
       }
      }
      
-     println("rectangle: " + toAdd.ID + ", width: " + w + ", height: " + h);
-     //elemsAdded-1 because get() gets from 0-based indexing
-     Rectangle temp = rectangles.get(count);
+     Rectangle temp = rectangles.get(elemsAdded);
      temp.setRect(currX, currY, w, h, toAdd.ID);
-     rectangles.set(count, temp);
+     rectangles.set(elemsAdded, temp);
      elemsAdded++;
       
   }

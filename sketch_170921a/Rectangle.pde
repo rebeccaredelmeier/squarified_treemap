@@ -29,17 +29,16 @@ class Rectangle {
   }
   
   void drawRect() {
-    //rect(rectX, rectY, rectWidth, rectHeight);
+    rect(rectX, rectY, rectWidth, rectHeight);
     fill(0);
-    //text("Node ID: " + currNode.ID, rectX + (rectWidth / 2), rectY + (rectHeight / 2));
-    //textAlign(CENTER);
-    //fill(255);
+    text("Node ID: " + currNode.ID, rectX + (rectWidth / 2), rectY + (rectHeight / 2));
+    textAlign(CENTER);
+    fill(255);
     
   }
   
   void checkRect() {
     if (mouseOver()) {
-      //drawRect(345);
       fill(345);
       rect(rectX, rectY, rectWidth, rectHeight);
     }

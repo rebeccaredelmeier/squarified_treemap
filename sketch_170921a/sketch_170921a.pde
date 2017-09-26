@@ -12,11 +12,11 @@ void setup()
   //traverse();
   surface.setResizable(true);
   c = new Canvas(width, height, rootNode);
+
 }
 
 void draw() 
 {
-  background(204);
   int currHeight = height;
   int currWidth = width;
   c.updateCanvas(currHeight, currWidth, 0, 0);
